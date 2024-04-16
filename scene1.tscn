@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cscr0w3k5wtgp"]
+
+[ext_resource type="Script" path="res://fakka.cs" id="1_6elh2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r3ogr"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_6elh2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_r3ogr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.795029, 0, -0.606571, 0, 1, 0, 0.606571, 0, 0.795029, -2.17175, 0.101863, 2.22439)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.772235, 0, -0.635337, 0, 1, 0, 0.635337, 0, 0.772235, 2.84822, 0, 0)
