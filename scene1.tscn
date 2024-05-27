@@ -1,17 +1,124 @@
-[gd_scene load_steps=3 format=3 uid="uid://cscr0w3k5wtgp"]
+[gd_scene load_steps=7 format=3 uid="uid://cscr0w3k5wtgp"]
 
-[ext_resource type="Script" path="res://fakka.cs" id="1_6elh2"]
+[ext_resource type="Texture2D" uid="uid://i56ekjhxk6bn" path="res://Assets/Background.png" id="1_j2mqq"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_r3ogr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g54xe"]
+size = Vector2(20, 120)
 
-[node name="Node3D" type="Node3D"]
-script = ExtResource("1_6elh2")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0sd2"]
+size = Vector2(10, 10)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_r3ogr")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4oh86"]
+size = Vector2(1920, 80)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.795029, 0, -0.606571, 0, 1, 0, 0.606571, 0, 0.795029, -2.17175, 0.101863, 2.22439)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcohc"]
+size = Vector2(1920, 80)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.772235, 0, -0.635337, 0, 1, 0, 0.635337, 0, 0.772235, 2.84822, 0, 0)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4b4cj"]
+size = Vector2(96, 1080)
+
+[node name="Main" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_j2mqq")
+centered = false
+
+[node name="Player" type="StaticBody2D" parent="."]
+position = Vector2(50, 540)
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = 60.0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_g54xe")
+
+[node name="CPU" type="StaticBody2D" parent="."]
+position = Vector2(1850, 540)
+
+[node name="ColorRect" type="ColorRect" parent="CPU"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = 60.0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CPU"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_g54xe")
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(960, 540)
+collision_mask = 3
+
+[node name="ColorRect" type="ColorRect" parent="Ball"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_r0sd2")
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(960, -40)
+shape = SubResource("RectangleShape2D_4oh86")
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(960, 1120)
+shape = SubResource("RectangleShape2D_hcohc")
+
+[node name="ScoreLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreLeft"]
+position = Vector2(-48, 540)
+shape = SubResource("RectangleShape2D_4b4cj")
+
+[node name="ScoreRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreRight"]
+position = Vector2(1968, 540)
+shape = SubResource("RectangleShape2D_4b4cj")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PlayerScore" type="Label" parent="HUD"]
+offset_left = 850.0
+offset_right = 890.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CPUScore" type="Label" parent="HUD"]
+offset_left = 1030.0
+offset_right = 1070.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
