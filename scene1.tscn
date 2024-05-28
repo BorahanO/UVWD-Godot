@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cscr0w3k5wtgp"]
+[gd_scene load_steps=10 format=3 uid="uid://cscr0w3k5wtgp"]
 
 [ext_resource type="Texture2D" uid="uid://i56ekjhxk6bn" path="res://Assets/Background.png" id="1_j2mqq"]
+[ext_resource type="Script" path="res://scene1.gd" id="2_x8vvf"]
+[ext_resource type="Script" path="res://Player.gd" id="3_ylthb"]
+[ext_resource type="Script" path="res://Ball.gd" id="4_qpeej"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g54xe"]
 size = Vector2(20, 120)
@@ -21,9 +24,11 @@ size = Vector2(96, 1080)
 texture_filter = 1
 texture = ExtResource("1_j2mqq")
 centered = false
+script = ExtResource("2_x8vvf")
 
 [node name="Player" type="StaticBody2D" parent="."]
-position = Vector2(50, 540)
+position = Vector2(50, 483)
+script = ExtResource("3_ylthb")
 
 [node name="ColorRect" type="ColorRect" parent="Player"]
 anchors_preset = 4
@@ -59,6 +64,7 @@ shape = SubResource("RectangleShape2D_g54xe")
 [node name="Ball" type="CharacterBody2D" parent="."]
 position = Vector2(960, 540)
 collision_mask = 3
+script = ExtResource("4_qpeej")
 
 [node name="ColorRect" type="ColorRect" parent="Ball"]
 anchors_preset = 8
@@ -122,3 +128,5 @@ vertical_alignment = 1
 [node name="BallTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
